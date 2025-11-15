@@ -24,23 +24,19 @@ DIGITS = {
   "nine"  => 9
 }
 
-require "strscan"
+PATTERN_1 = Regexp.union(DIGITS.keys.first(10))
+PATTERN_2 = Regexp.union(DIGITS.keys)
 
-numbers = lines.map do |line|
-  digits = []
+p1 = lines.map do |line|
+  digits = line.scan(/(?=(#{PATTERN_1}))/).flatten
 
-  scanner = StringScanner.new(line)
+  DIGITS[digits.first] * 10 + DIGITS[digits.last]
+end.sum
 
-  loop do
-    if digit = DIGITS.keys.detect { |d| scanner.match?(d) }
-      digits << DIGITS[digit]
-    end
+p2 = lines.map do |line|
+  digits = line.scan(/(?=(#{PATTERN_2}))/).flatten
 
-    scanner.pos += 1
-    break if scanner.eos?
-  end
+  DIGITS[digits.first] * 10 + DIGITS[digits.last]
+end.sum
 
-  digits.first * 10 + digits.last
-end
-
-puts numbers.sum
+puts p1, p2
