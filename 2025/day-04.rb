@@ -10,7 +10,7 @@ p2 = 0
 first_iteration = true
 
 loop do
-  can_access_rolls = false
+  rolls_for_removal = []
 
   for row in 0...rows
     for col in 0...cols
@@ -20,28 +20,24 @@ loop do
 
       directions.each do |dr, dc|
         if row + dr >= 0 && row + dr < rows && col + dc >= 0 && col + dc < cols
-          count += 1 if grid[row+dr][col+dc] == "@" || grid[row+dr][col+dc] == "x"
+          count += 1 if grid[row+dr][col+dc] == "@"
         end
 
         break if count >= 4
       end
 
-      if count < 4
-        grid[row][col] = "x"
-        can_access_rolls = true
-        p1 += 1 if first_iteration
-        p2 += 1
-      end
+      rolls_for_removal << [row, col] if count < 4
     end
   end
 
-  for row in 0...rows
-    for col in 0...cols
-      grid[row][col] = "." if grid[row][col] == "x"
-    end
+  break if rolls_for_removal.empty?
+
+  rolls_for_removal.each do |row, col|
+    grid[row][col] = "."
+    p1 += 1 if first_iteration
+    p2 += 1
   end
 
-  break unless can_access_rolls
   first_iteration = false
 end
 
