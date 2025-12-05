@@ -1,4 +1,4 @@
-ranges, ingredients = File.read("day-5.in").split("\n\n")
+ranges, ingredients = File.read("day-05.in").split("\n\n")
 
 ranges = ranges.split.map { |r| Range.new(*r.split("-").map(&:to_i)) }.sort_by(&:begin)
 ingredients = ingredients.split.map(&:to_i)
