@@ -1,5 +1,5 @@
-cords = File.readlines("day-08.in", chomp: true).map { |l| l.split(",").map(&:to_i) }
-circuits = cords.map { |a| Set.new([a]) }
+coords = File.readlines("day-08.in", chomp: true).map { |l| l.split(",").map(&:to_i) }
+circuits = coords.map { |a| Set.new([a]) }
 
 def distance(a, b)
   x1, y1, z1 = a
@@ -10,9 +10,9 @@ end
 
 possible_connections = []
 
-for i in 0...cords.size-1
-  for j in i+1...cords.size
-    possible_connections << [distance(cords[i], cords[j]), cords[i], cords[j]]
+for i in 0...coords.size-1
+  for j in i+1...coords.size
+    possible_connections << [distance(coords[i], coords[j]), coords[i], coords[j]]
   end
 end
 
