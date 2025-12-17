@@ -56,7 +56,6 @@ possible_gears = []
 for i in 0...rows
   j = 0
   while j < cols
-    num_cords = nil
     number = ""
 
     while grid[i][j] =~ /\d/
